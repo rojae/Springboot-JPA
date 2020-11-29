@@ -10,7 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Builder
+@Setter
+@Getter
 public class Account {
 
     @Id @GeneratedValue
@@ -28,7 +29,7 @@ public class Account {
     @Transient
     private String po;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private Set<Study> studies = new HashSet<>();
 
     @Embedded
@@ -37,8 +38,25 @@ public class Account {
     })
     private Address address;
 
+    public void addStudy(Study study) {
+        this.getStudies().add(study);
+        study.setOwner(this);
+    }
+
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
+    }
+
     @Override
     public String toString(){
-        return "id: "+id+", username :"+username+", password: "+ password + ", createdDate: "+created;
+        String list = "";
+        for(Study study : studies){
+            list += study.getName();
+        }
+
+        return "id: "+id+", username :"+username+", password: "+ password + ", createdDate: "+created
+                +", studies : " + list;
     }
+
 }

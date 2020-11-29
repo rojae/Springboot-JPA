@@ -20,29 +20,25 @@ public class JpaRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Study study = Study.builder().name("Spring Data JPA").build();
-        HashSet<Study> studies = new HashSet<>();
-        studies.add(study);
+        Account account = new Account();
+        account.setUsername("hinernate");
+        account.setPassword("123");
 
-        Account account1 = Account.builder().username("jpa").password("123").studies(studies).build();
-        Account account2 = Account.builder().username("hibernate").password("123").build();
+        Study study = new Study();
+        study.setName("Spring Data JPA");
 
+        // 객체 관련 맵핑 N:M
+        study.setOwner(account);
+        account.addStudy(study);
 
-
-        this.runWithJpa(account1);
-        this.runWithHibernate(account2, study);
-    }
-
-    public void runWithJpa(Account account) {
-        System.out.println("Run with JPA");
-        System.out.println(account);
-        entityManager.persist(account);
-
+        this.runWithHibernate(account, study);
     }
 
     public void runWithHibernate(Account account, Study study) {
         System.out.println("Run with Hibernate");
         System.out.println(account);
+        System.out.println(study);
+
         Session session = entityManager.unwrap(Session.class);
         session.save(account);
         session.save(study);
