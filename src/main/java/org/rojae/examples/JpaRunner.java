@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashSet;
 
 @Component
 @Transactional
@@ -19,10 +20,14 @@ public class JpaRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Account account1 = Account.builder().username("jpa").password("123").build();
+        Study study = Study.builder().name("Spring Data JPA").build();
+        HashSet<Study> studies = new HashSet<>();
+        studies.add(study);
+
+        Account account1 = Account.builder().username("jpa").password("123").studies(studies).build();
         Account account2 = Account.builder().username("hibernate").password("123").build();
 
-        Study study = Study.builder().name("Spring Data JPA").owner(account2).build();
+
 
         this.runWithJpa(account1);
         this.runWithHibernate(account2, study);

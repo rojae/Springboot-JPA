@@ -18,7 +18,7 @@ public class Study {
 
     // study 입장에서는 many to one
     // study table에서 외래키 생성 (owner의 .id를 찾아감)
-    @ManyToOne
-    private Account owner;
+    //@ManyToOne
+    //private Account owner;
 
 }
