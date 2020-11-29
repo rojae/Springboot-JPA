@@ -26,6 +26,12 @@ public class Account {
     @Transient
     private String po;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name="home_street"))
+    })
+    private Address address;
+
     @Override
     public String toString(){
         return "id: "+id+", username :"+username+", password: "+ password + ", createdDate: "+created;
