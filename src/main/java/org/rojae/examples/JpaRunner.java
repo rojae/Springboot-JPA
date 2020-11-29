@@ -22,21 +22,25 @@ public class JpaRunner implements ApplicationRunner {
         Account account1 = Account.builder().username("jpa").password("123").build();
         Account account2 = Account.builder().username("hibernate").password("123").build();
 
+        Study study = Study.builder().name("Spring Data JPA").owner(account2).build();
+
         this.runWithJpa(account1);
-        this.runWithHibernate(account2);
+        this.runWithHibernate(account2, study);
     }
 
     public void runWithJpa(Account account) {
         System.out.println("Run with JPA");
         System.out.println(account);
         entityManager.persist(account);
+
     }
 
-    public void runWithHibernate(Account account) {
+    public void runWithHibernate(Account account, Study study) {
         System.out.println("Run with Hibernate");
         System.out.println(account);
         Session session = entityManager.unwrap(Session.class);
         session.save(account);
+        session.save(study);
     }
 
 }
