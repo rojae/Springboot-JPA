@@ -11,7 +11,7 @@ public class Comment {
     @Column
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
 
     public Long getId() {

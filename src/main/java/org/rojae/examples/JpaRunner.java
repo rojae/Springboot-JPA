@@ -31,10 +31,20 @@ public class JpaRunner implements ApplicationRunner {
         study.setOwner(account);
         account.addStudy(study);
 
-        this.runWithPersistent(account, study);
+       // this.runWithPersistent(account, study);
 
-        // runWithPost()
-        runWithPost();
+        // runWithPost();
+
+        // Post의 Comment FetchType이 Eager
+        // left outer join을 통해서 글의 댓글까지 가져온다.
+        Session session = entityManager.unwrap(Session.class);
+        Post post = session.get(Post.class, 3l);
+        System.out.println("===================");
+        System.out.println(post.getTitle());
+        post.getComments().forEach(c ->{
+            System.out.println("--------------------------");
+            System.out.println(c.getComment());
+        });
     }
 
     // Post의 CasCade로 인해서 post만 save해도 comments가 등록됌
@@ -55,6 +65,7 @@ public class JpaRunner implements ApplicationRunner {
         Session session = entityManager.unwrap(Session.class);
         session.save(post);
         //session.delete(post);
+
     }
 
     // Persistent 상태
