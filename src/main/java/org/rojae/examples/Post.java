@@ -14,7 +14,7 @@ public class Post {
 
     // CasCade로 인해서 post만 save해도 comments가 등록됌
     // FetchType을 Eager로 즉시 가져오기 때문에, join으로 자동 쿼리 생성
-    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Comment> comments = new HashSet<>();
 
     public void addComment(Comment comment){
@@ -40,5 +40,12 @@ public class Post {
 
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                '}';
     }
 }
