@@ -1,28 +1,11 @@
 package org.rojae.examples;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
+/*
+ Bean으로 자동으로 등록되기 때문에 @Repository 필요 없음
+ @Import(JpaRepositoriesRegistrar.class)
+ */
+public interface PostRepository extends JpaRepository<Post, Long> {
 
-@Repository
-public class PostRepository {
-
-    @PersistenceContext
-    EntityManager entityManager;
-
-    public Post add(Post post) {
-        entityManager.persist(post);
-        return post;
-    }
-
-    public void delete(Post post) {
-        entityManager.remove(post);
-    }
-
-    public List<Post> findAll() {
-        return entityManager.createQuery("SELECT p FROM Post AS p", Post.class)
-                .getResultList();
-    }
 }
