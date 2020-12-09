@@ -2,6 +2,7 @@ package org.rojae.examples;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 /*
 원래 @Configuration이 설정되어 있는 클래스에
@@ -12,11 +13,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableJpaRepositores (@Import JpaRepositoriesRegistrar.class)
 를 자동으로 해주기 때문이다.
 
-스프링 문서에도
-'@SpringBootApplication은 JPA 리퍼지토리들을 등록해줍니다.'
+스프링 문서에도 '@SpringBootApplication은
+@EnableJpaRepositories를 통해 JPA 리퍼지토리들을 등록해줍니다.'
+@EnableJpaRepositories - @JpaRepositoriesRegistrar - @ImportBeanDefinitionRegistrar
 라고만 설명되어있다.
  */
 @SpringBootApplication
+@Import(RojaeRegistrar.class)           // bean 등록
 public class SpringbootJpaApplication {
 
     public static void main(String[] args) {
