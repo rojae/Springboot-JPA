@@ -22,7 +22,7 @@ public class PostRepository {
     }
 
     public List<Post> findAll() {
-        entityManager.createQuery("SELECT p FROM Post AS p", Post.class)
+        return entityManager.createQuery("SELECT p FROM Post AS p", Post.class)
                 .getResultList();
     }
 }
