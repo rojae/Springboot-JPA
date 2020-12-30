@@ -4,12 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,32 +19,29 @@ public class CommentRepositoryTest {
     CommentRepository commentRepository;
 
     @Test
-    @Rollback(false)
     public void run(){
-        // Given
-        Comment comment = new Comment();
-        comment.setComment("Test");
+//        // Given
+//        Comment comment = new Comment();
+//        comment.setComment("Test");
+//        commentRepository.save(comment);
+//
+//        List<Comment> all = commentRepository.findAll();
+//        assertThat(all.size()).isEqualTo(1);
+//
+//        long count = commentRepository.count();
+//        assertThat(count).isEqualTo(1);
 
-        // Then
-        assertThat(comment.getId()).isNull();
 
-        // When
-        commentRepository.save(comment);
-
-        // Then
-        assertThat(comment.getId()).isEqualTo(1);
-
-        // When
-        List<Comment> list = commentRepository.findAll();
-
-        // Then
-        assertThat(list.size()).isEqualTo(1);
+        // When and Then
+        commentRepository.save(null);
 
         // When
-        Page<Comment> page = commentRepository.findByCommentContains("Test", PageRequest.of(0, 10));
+        Optional<Comment> comment = commentRepository.findById(100l);
+        assertThat(comment).isEmpty();
 
         // Then
-        assertThat(page.getNumberOfElements()).isEqualTo(1);
+        Comment one = comment.orElseThrow(IllegalArgumentException::new);
+
     }
 
 }
