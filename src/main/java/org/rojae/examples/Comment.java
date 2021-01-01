@@ -1,5 +1,7 @@
 package org.rojae.examples;
 
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,18 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Post post;
+
+    @NonNull
+    private Integer likeCount = 0;
+
+    @NonNull
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(@NonNull Integer likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public Long getId() {
         return id;
