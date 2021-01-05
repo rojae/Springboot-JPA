@@ -1,11 +1,13 @@
 package org.rojae.examples;
 
+import org.springframework.data.domain.AbstractAggregateRoot;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Post {
+public class Post extends AbstractAggregateRoot<Post> {
 
     @Id @GeneratedValue
     private Long id;
@@ -40,6 +42,11 @@ public class Post {
 
     public String getTitle() {
         return title;
+    }
+
+    public Post publish(){
+        this.registerEvent(new PostPublishEvent(this));
+        return this;
     }
 
     @Override
