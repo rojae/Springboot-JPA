@@ -3,6 +3,7 @@ package org.rojae.examples;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /*
 원래 @Configuration이 설정되어 있는 클래스에
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Import;
  */
 @SpringBootApplication
 @Import(RojaeRegistrar.class)           // bean 등록
+@EnableJpaRepositories(repositoryBaseClass = CommonRepositoryImpl.class)       // 공통 레파지토리를 baseClass로 알려줌
 public class SpringbootJpaApplication {
 
     public static void main(String[] args) {
