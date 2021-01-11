@@ -30,6 +30,9 @@ Springboot JPA Practice
 >SELECT * FROM account;
 
 
+#### 웹 기반에서 사용하는 JPA
+> url('https://github.com/rojae/Springboot-JPA2')
+
 
 
 
